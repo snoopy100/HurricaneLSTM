@@ -1,0 +1,5 @@
+ - add more hidden layers
+ - change vector dimension on input & output to be correct
+ - mask -999 in timeseries (sorta done)
+ - getIterator() passing empty strings somewhere??? something funky going on line 38. I need the premium chatgpt for
+    this one -> dataset has letters where it is expecting numbers "21.0N"; figure somehting out ig
