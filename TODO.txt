@@ -3,3 +3,7 @@
  - mask -999 in timeseries (sorta done)
  - getIterator() passing empty strings somewhere??? something funky going on line 38. I need the premium chatgpt for
     this one -> dataset has letters where it is expecting numbers "21.0N"; figure somehting out ig
+ - fix packages and modules and stuff
+ - fnish dataProcessing.Main to be able to run it and all dataProcessing is done
+ - line 25 letterencode
+ - fix main class to sometind instead of letterencode

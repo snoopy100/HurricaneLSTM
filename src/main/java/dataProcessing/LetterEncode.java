@@ -3,10 +3,7 @@ package dataProcessing;
 //import org.apache.commons.io.IOExceptionList;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class LetterEncode {
     public static final Map<String, Integer> systemCodeMap = Map.ofEntries(
@@ -23,23 +20,21 @@ public class LetterEncode {
             Map.entry("S", 4)
     ); */
 
-    public static void main(String[] args_and_other_unnecessary_stuff) {
+    public static void main(String[] args) {
         // change that for working on mac
+        // dont forget to change bellow to src/main/whatever
         File inputDir = new File("src/main/resources/storms");
         System.out.println(System.getProperty("user.dir"));
         System.out.println("dinputDir exists : " + inputDir.exists());
         File[] files = inputDir.listFiles();
 
         for(File storm: files) {
-            FileWriter writer = null;
-            try {
-                writer = new FileWriter(storm);
-            } catch(Exception e) {e.printStackTrace();}
+            System.out.println(storm.getName());
             String stormName = storm.getName();
             String[] lines = readLines(1, storm);
             for (int i = 0; i < lines.length; i++) {
                 String[] entries = splitLine(lines[i]);
-                for (int e = 0; i < entries.length; e++) {
+                for (int e = 0; e < entries.length; e++) {
                     String entry = entries[e];
                     if(entry.contains("N,")) {
                         entry = directionEncode(entry, 0);
@@ -56,6 +51,10 @@ public class LetterEncode {
                 lines[i] = String.join(",", entries);
             } // iterated thru lines
             // iterated through all the lines now
+            FileWriter writer = null;
+            try {
+                writer = new FileWriter(storm);
+            } catch(Exception e) {e.printStackTrace();}
             try {
                 writer.write(String.join("\n", lines));
                 writer.close();
@@ -63,32 +62,31 @@ public class LetterEncode {
         } // iterated thru storms
     }
 
-    private static String directionEncode(String entry, int x) {
+    public static String directionEncode(String entry, int x) {
+        System.out.println("direction encoded");
         entry = entry.replaceAll("[^A-Za-z,]","");
         entry = String.valueOf(Double.parseDouble(entry) + x);
         return entry;
     }
 
-    private static String[] splitLine(String line) {
+    public static String[] splitLine(String line) {
         return line.split(",");
     }
 
-    private static String[] readLines(int skipNum, File fileName) {
-        List<String> lines = new ArrayList<String>();
-        FileReader fileReader;
+    public static String[] readLines(int skipNum, File fileName) {
+        System.out.println(fileName.getName());
+        // return srting[] of all lines in file minus first skipnum
+        ArrayList<String> lines = new ArrayList<String>();
+        BufferedReader reader = null;
+        String line;
         try {
-            fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = null;
-            while ((line = bufferedReader.readLine()) != null) {
+            reader = new BufferedReader(new FileReader(fileName.getAbsolutePath()));
+            while ((line = reader.readLine()) != null) {
                 lines.add(line);
+                System.out.println("Line read");
             }
-            bufferedReader.close();
-            fileReader.close();
-        } catch (Exception e) {
-            System.out.println("something done did mess up bad line 46 readlines() LetterEncode.java");
-            e.printStackTrace();
-        }
-        return lines.subList(skipNum, lines.size()).toArray(new String[lines.size() - skipNum]);
+        } catch(Exception e) { e.printStackTrace(); System.out.println("Line readlines() letternencode"); }
+
+        return (lines.subList(skipNum, lines.size())).toArray(new String[0]);
     }
 }
