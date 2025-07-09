@@ -36,13 +36,13 @@ public class LetterEncode {
                 String[] entries = splitLine(lines[i]);
                 for (int e = 0; e < entries.length; e++) {
                     String entry = entries[e];
-                    if(entry.contains("N,")) {
+                    if(entry.contains("N")) {
                         entry = directionEncode(entry, 0);
-                    } else if(entry.contains("S,")) {
+                    } else if(entry.contains("S")) {
                         entry = directionEncode(entry, 180);
-                    } else if(entry.contains("E,")) {
+                    } else if(entry.contains("E")) {
                         entry = directionEncode(entry, 90);
-                    } else if (entry.contains("W,")) {
+                    } else if (entry.contains("W")) {
                         entry = directionEncode(entry, 270);
                     } else {
                         entry = String.valueOf(systemCodeMap.get(entry.replaceAll(",", ""))) + ",";
