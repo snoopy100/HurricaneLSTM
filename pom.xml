@@ -36,6 +36,14 @@
   <build>
     <plugins>
       <plugin>
+        <executions>
+          <execution>
+            <id>default-cli</id>
+            <configuration>
+              <!-- <mainClass>dataProcessing.LetterEncode</mainClass> -->
+            </configuration>
+          </execution>
+        </executions>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -43,6 +51,45 @@
           <target>16</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.4.2</version>
+        <configuration>
+          <archive>
+            <index>true</index>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>dataProcessing.Main</mainClass>
+            </manifest>
+            <manifestEntries>
+              <mode>development</mode>
+              <url>${project.url}</url>
+              <key>value</key>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>myProfile</id>
+      <build>
+        <finalName>name</finalName>
+        <resources>
+          <resource>
+            <directory>/resources</directory>
+            <filtering>false</filtering>
+            <includes>
+              <include>/storms/</include>
+              <include>/test/</include>
+              <include>/train/</include>
+              <include>hurdat2.txt</include>
+            </includes>
+          </resource>
+        </resources>
+      </build>
+    </profile>
+  </profiles>
 </project>
