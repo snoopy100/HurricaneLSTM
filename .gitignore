@@ -2,6 +2,13 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+src/main/resources/storms/*.csv
+src/main/resources/test/features/*.csv
+src/main/resources/test/labels/*.csv
+src/main/resources/train/features/*.csv
+src/main/resources/teain/labels/*.csv
+
+
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
